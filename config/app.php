@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
-    'mail_to' => env('ADMIN_MAIL', 'juanca2626@gmail.com'),
+    'mail_to' => env('ADMIN_MAIL', 'admin@laonce.com'),
 
     /*
     |--------------------------------------------------------------------------

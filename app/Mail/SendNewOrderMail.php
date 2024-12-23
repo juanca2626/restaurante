@@ -20,7 +20,7 @@ class SendNewOrderMail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public Collection $cart, 
+        public Collection $cart,
         public Customer $customer,
         public string $detail)
     {
@@ -33,7 +33,7 @@ class SendNewOrderMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address(config('mail.mailers.smtp.mail_send'), 'Juan Carlos'),
+            from: new Address(config('mail.mailers.smtp.mail_send'), 'Administrador LaOnce'),
             subject: 'Pedido registrado',
         );
     }
