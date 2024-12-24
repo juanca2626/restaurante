@@ -46,6 +46,15 @@ class HomeController extends Controller
             ]);
         }        
         Mail::to(config('app.mail_to'))->send(new SendNewOrderMail(collect($request->cart), $customer, $request->detail ?? ''));
+        logger('Admin mail sent');
+        if ($request->email) {
+            try {
+                Mail::to($request->email)->send(new SendNewOrderMail(collect($request->cart), $customer, $request->detail ?? ''));
+                logger('Copy mail sent');
+            } catch (\Exception $e) {
+                logger('Error when sending email');
+            }
+        }
         return response()->json();
     }
 

@@ -1,10 +1,11 @@
 @extends(backpack_view('blank'))
 
 @php
+    $week = request()->input('add_weeks') === null ? 'Próxima Semana' : (request()->input('add_weeks') == 1 ? 'Próxima Semana' : 'Semana Actual');
     $widgets['before_content'][] = [
         'type'        => 'jumbotron',
-        'heading'     => 'Pedidos por cliente',
-        'content'     => 'Aquí puede ver tus reportes de los pedidos que han hecho tus clientes',
+        'heading'     => "Pedidos por día - $week",
+        'content'     => 'Aquí puede ver tus reportes de los pedidos diarios',
     ];
 @endphp
 
@@ -15,9 +16,8 @@
     @endphp
   <div>
     <div class="mb-5 d-flex gap-2 justify-content-between">
-        <a href="{{ route('dashboard') }}" class="btn btn-primary">Ir a Pedidos por Día</a>
+        <a href="{{ route('dashboard') }}?add_weeks={{request()->input('add_weeks')}}" class="btn btn-primary">Ir a Pedidos por Día</a>
         <form action="{{ route('orders-by-client') }}">
-            @csrf
             <input type="hidden" name="add_weeks" value="{{ request()->input('add_weeks') === null ? 0 : (request()->input('add_weeks') == 1 ? 0 : 1) }}">
             <button class="btn btn-primary">{{ request()->input('add_weeks') === null ? 'Semana Actual' : (request()->input('add_weeks') == 1 ? 'Semana Actual' : 'Próxima Semana')}}</button>
         </form>

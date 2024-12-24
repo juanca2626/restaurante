@@ -65,6 +65,10 @@
               <label for="">Celular</label>
               <input type="text" v-model="cellphone" class="form-control">
             </div>
+            <div class="form-group">
+              <label for="">Correo</label>
+              <input type="text" v-model="email" class="form-control">
+            </div>
           </div>
         </div>
       </div>
@@ -114,6 +118,7 @@
   const cellphone = ref('');  
   const dni = ref('');  
   const address = ref('');
+  const email = ref('');
 
   watch(dni, (value) => {
     if (value) {
@@ -136,6 +141,7 @@
         cellphone: cellphone.value,
         dni: dni.value,
         address: address.value,
+        email: email.value,
         total: cartStore.total,
         detail: cartStore.detail
       })
@@ -196,6 +202,7 @@
     cellphone.value = '';
     dni.value = ''
     address.value = '';
+    email.value = '';
   }
 
   const getDish = (dish_id) => {

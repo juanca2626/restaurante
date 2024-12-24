@@ -29,10 +29,11 @@ class SaveOrderRequest extends FormRequest
             'dni' => ['required', 'numeric', function ($attribute, $value, $fail) {
                 $customer = Customer::whereDni(request()->input('dni'))->first();
                 if (!$customer) { return; }
-                // $order_dates = collect(request()->input('cart'))->pluck('date');
-                $orders = Order::whereDate('created_at', now()->format('Y-m-d'))->whereCustomerId($customer->id)->count();
+                $monday = now()->startOfWeek();
+                $friday = $monday->copy()->addWeek()->format('Y-m-d');
+                $orders = Order::whereBetween('created_at', [$monday->format('Y-m-d'), $friday])->whereCustomerId($customer->id)->count();
                 if ($orders > 0) {
-                    return $fail('Usted ya realizó su pedido. Si desea modificarlo contáctese con la empresa');
+                    return $fail('Usted ya realizó su pedido de la semana. Si desea modificarlo contáctese con la empresa');
                 }
             }],
             'name' => [function ($attribute, $value, $fail) {

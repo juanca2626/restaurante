@@ -9,9 +9,9 @@
 <body>
     <p>Hola, se acaba de registrar el siguiente pedido para:</p>
     <ul>
-        <li>{{ $customer->name }}, {{ $customer->dni }} {{ $customer->cellphone }} {{ $customer->address }} </li>
+        <li>{{ $customer->name }}, {{ $customer->dni }}, {{ $customer->cellphone }}, {{ $customer->address }}, {{ $customer->email }} </li>
     </ul>
-    <p>Con los siguiente platos:</p>    
+    <p>Con los siguiente platos:</p>
     <ul>
         @php
             $groupedCart = $cart->sortBy('date')->values()->groupBy('date');

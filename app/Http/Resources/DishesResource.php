@@ -15,14 +15,13 @@ class DishesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $dayNextWeek = $this->date->copy()->addWeeks(2)->isoWeek();
-        $yearNextWeek = $this->date->copy()->addWeeks(2)->isoWeekYear();
-        $nextWeek = Carbon::now()->setISODate($yearNextWeek, $dayNextWeek, $this->date->dayOfWeek);
-        $nextDate = $nextWeek->startOfWeek(0)->addDays($this->date->dayOfWeek);        
+        $monday = $this->date->startOfWeek();
+        $weeksUntilNow = now()->startOfWeek()->diffInWeeks($monday);
+        $newDate = $this->date->addWeeks($weeksUntilNow + 1);
         return [
-            'date' => $nextDate->format('Y-m-d'),
-            'date_formated' => $nextDate->format('d/m'),
-            'day_of_week' => $this->date->dayOfWeek === 0 ? 6 : $this->date->dayOfWeek - 1, 
+            'date' => $newDate->format('Y-m-d'),
+            'date_formated' => $newDate->format('d/m'),
+            'day_of_week' => $newDate->dayOfWeek === 0 ? 6 : $newDate->dayOfWeek - 1, 
             'dish' => [
                 'id' => $this->id,
                 'name' => $this->dish->name,
