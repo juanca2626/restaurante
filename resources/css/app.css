@@ -53,9 +53,9 @@ header .cart-button {
     right: 0;
     top: 0;
     z-index: 2;
-    width: 430px;
+    width: 360px;
     background-color: #f7f7f8;    
-    height: 100%;
+    height: 100vh;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -65,7 +65,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .sidebar-cart .body {
     padding: 1rem;
     overflow: auto;
-    height: 75vh;
+    height: 535px;
 }
 .sidebar-cart .menu-item {
     margin-bottom: 1rem;

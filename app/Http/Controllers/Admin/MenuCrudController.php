@@ -30,6 +30,8 @@ class MenuCrudController extends CrudController
         CRUD::setModel(\App\Models\Menu::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/menu');
         CRUD::setEntityNameStrings('menu', 'Menus');
+        CRUD::removeButton('create');
+        CRUD::denyAccess('create');
     }
 
     /**
@@ -39,25 +41,21 @@ class MenuCrudController extends CrudController
      * @return void
      */
     protected function setupListOperation()
-    {
-        CRUD::setFromDb(); // set columns from db columns.
-        CRUD::column('dish_id')->remove();
-        CRUD::column('price')->remove();
+    {        
         $this->crud->addColumn([
-            'label' => 'Plato', // Table column heading
+            'label' => 'Día',
+            'type' => 'text',
+            'name' => 'day_name',
+        ]);
+        $this->crud->addColumn([
+            'label' => 'Plato',
             'type' => 'select',
-            'name' => 'dish_id', // the column that contains the ID of that connected entity;
-            'entity' => 'dish', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\Dish", // foreign key model
-        ])->makeFirstColumn();
-        CRUD::orderBy("date","desc");
-        
-
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+            'name' => 'dish_id',
+            'entity' => 'dish',
+            'attribute' => 'name',
+            'model' => "App\Models\Dish",
+        ]);
+        CRUD::orderBy("date","asc");
     }
 
     /**
@@ -68,12 +66,31 @@ class MenuCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(MenuRequest::class);                
+        CRUD::setValidation(MenuRequest::class);
+    }
+
+    /**
+     * Define what happens when the Update operation is loaded.
+     * 
+     * @see https://backpackforlaravel.com/docs/crud-operation-update
+     * @return void
+     */
+    protected function setupUpdateOperation()
+    {
         $this->crud->addField([
-            'label' => "Fecha",
-            'type' => 'date',
-            'name' => 'date',
-            'default' => Carbon::now()->format('Y-m-d'),
+            'label' => 'Día',
+            'name' => 'day_name',
+            'type' => 'select_from_array',
+            'options' => [
+                'Lunes' => 'Lunes',
+                'Martes' => 'Martes',
+                'Miércoles' => 'Miércoles',
+                'Jueves' => 'Jueves',
+                'Viernes' => 'Viernes'
+            ],
+            'attributes' => [
+                'disabled' => 'disabled',
+            ],
         ]);
         $this->crud->addField([
             'label' => "Plato",
@@ -85,21 +102,5 @@ class MenuCrudController extends CrudController
                 return $query->orderBy('name')->get();
             }),
         ]);
-
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
-    }
-
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation();
     }
 }
