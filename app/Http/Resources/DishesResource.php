@@ -23,7 +23,7 @@ class DishesResource extends JsonResource
             'date_formated' => $newDate->format('d/m'),
             'day_of_week' => $newDate->dayOfWeek === 0 ? 6 : $newDate->dayOfWeek - 1, 
             'dish' => [
-                'id' => $this->id,
+                'id' => $this->dish->id,
                 'name' => $this->dish->name,
                 'price' => $this->dish->price,
                 'image' => $this->dish->image,
