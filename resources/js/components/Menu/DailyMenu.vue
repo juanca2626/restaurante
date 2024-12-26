@@ -1,84 +1,108 @@
 <template>
-    <div class="container mx-auto px-4 py-6">
-      <!-- Layout principal -->
-      <div class="flex flex-col lg:flex-row gap-6">
-        <!-- Sección izquierda (Información del restaurante) -->
-        <aside class="lg:w-1/4 bg-white rounded-lg shadow-lg p-6">
-          <h2 class="text-xl font-semibold text-gray-800 mb-4">Sobre Nosotros</h2>
-          <p class="text-sm text-gray-600 mb-6 leading-relaxed">
+  <div class="container mx-auto px-4 py-6">
+    <!-- Layout principal -->
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- Sección izquierda (Información del restaurante) -->
+      <aside class="lg:w-1/4 bg-white rounded-lg shadow-lg p-6">
+        <div class="mb-6">
+          <h2 class="text-xl font-semibold text-orange-600 mb-4">Conócenos</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
             Restaurante Gourmet<br />
             Dirección: Av. Principal 123<br />
             Teléfono: (01) 234-5678<br />
             Horario: 8:00 AM - 10:00 PM
           </p>
-          <div class="rounded-lg overflow-hidden shadow-md">
-            <img class="w-full h-40 object-cover" src="/images/restaurant.jpg" alt="Restaurante" />
+        </div>
+
+        <div class="mb-6">
+          <h2 class="text-xl font-semibold text-orange-600 mb-4">Entra en Contacto</h2>
+          <div class="flex items-center text-sm text-gray-600 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.58 3.08A10.94 10.94 0 0119.94 6.5L21 8M16.58 3.08A10.94 10.94 0 0113.91 7.5M13.91 7.5L12 21l7.5-7.5M13.91 7.5l-1.58-4.42M13.91 7.5H12" />
+            </svg>
+            contacto@restaurante.com
           </div>
-        </aside>
-
-        <!-- Sección derecha (Menú con tabs) -->
-        <div class="flex-1">
-          <!-- Tabs para días de la semana -->
-          <div class="flex border-b border-gray-200">
-            <button
-              v-for="(day, index) in days"
-              :key="index"
-              @click="activeTab = index"
-              class="flex-1 py-3 text-center text-sm font-medium transition duration-300 uppercase tracking-wider"
-              :class="{
-                'border-b-4 border-orange-500 text-orange-600 font-bold': activeTab === index,
-                'text-gray-500 hover:text-orange-500': activeTab !== index
-              }"
-            >
-              {{ day }}
-              <span class="text-xs text-gray-400 block mt-1">
-                {{ menu.find(i => i.day_of_week === index)?.date_formated || '' }}
-              </span>
-            </button>
+          <div class="flex items-center text-sm text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21V3M21 16V5M16 16H9" />
+            </svg>
+            www.laonce.com
           </div>
+        </div>
 
-          <!-- Lista de platos -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div
-              v-for="item in menu.filter(i => i.day_of_week === activeTab)"
-              :key="item.dish.id"
-              class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 menu-item"
-            >
-              <!-- Imagen del plato -->
-              <div class="relative h-40">
-                <img
-                  :src="`/images/dishes/${item.dish.image || 'no-image'}.jpg`"
-                  alt="Imagen del plato"
-                  class="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
+        <div>
+          <h2 class="text-xl font-semibold text-orange-600 mb-4">Recogida</h2>
+          <p class="text-sm text-gray-600">
+            Ofrecemos un servicio rápido para recoger tus pedidos, Estamos para servirte!
+          </p>
+          <div class="rounded-lg overflow-hidden shadow-md mt-4">
+            <img class="w-full h-40 object-cover" src="/images/resto_laonce.jpg" alt="Recogida" />
+          </div>
+        </div>
+      </aside>
 
-              <!-- Información del plato -->
-              <div class="p-4 flex flex-col justify-between flex-1">
-                <h3 class="text-lg font-semibold text-gray-800 line-clamp-2">{{ item.dish.name }}</h3>
-                <p class="text-sm text-gray-500 mt-2 line-clamp-3">{{ item.dish.description || 'Sin descripción disponible' }}</p>
+      <!-- Sección derecha (Menú con tabs) -->
+      <div class="flex-1">
+        <!-- Tabs para días de la semana -->
+        <div class="flex border-b border-gray-200">
+          <button
+            v-for="(day, index) in days"
+            :key="index"
+            @click="activeTab = index"
+            class="flex-1 py-3 text-center text-sm font-medium transition duration-300 uppercase tracking-wider"
+            :class="{
+              'border-b-4 border-orange-500 text-orange-600 font-bold': activeTab === index,
+              'text-gray-500 hover:text-orange-500': activeTab !== index
+            }"
+          >
+            {{ day }}
+            <span class="text-xs text-gray-400 block mt-1">
+              {{ menu.find(i => i.day_of_week === index)?.date_formated || '' }}
+            </span>
+          </button>
+        </div>
 
-                <div class="flex items-center justify-between mt-4">
-                  <span class="text-lg font-semibold text-orange-600">S/ {{ item.dish.price }}</span>
-                  <div>
-                    <button
-                      v-if="!cartStore.getCartItem(item.dish.id)"
-                      @click="cartStore.addToCart(item.dish, item.date)"
-                      class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-300"
-                    >
-                      Agregar
-                    </button>
-                    <button
-                      v-else
-                      @click="cartStore.substractFromCart(item.dish.id)"
-                      class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 flex items-center gap-2"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M9 3v1H4v2h16V4h-5V3H9zM5 7h14v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7zm6 3v7h2v-7h-2z"/>
-                      </svg>
-                      Quitar
-                    </button>
-                  </div>
+        <!-- Lista de platos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div
+            v-for="item in menu.filter(i => i.day_of_week === activeTab)"
+            :key="item.dish.id"
+            class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 menu-item"
+          >
+            <!-- Imagen del plato -->
+            <div class="relative h-40">
+              <img
+                :src="`/images/dishes/${item.dish.image || 'no-image'}.jpg`"
+                alt="Imagen del plato"
+                class="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- Información del plato -->
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <h3 class="text-lg font-semibold text-gray-800 line-clamp-2">{{ item.dish.name }}</h3>
+              <p class="text-sm text-gray-500 mt-2 line-clamp-3">{{ item.dish.description || 'Sin descripción disponible' }}</p>
+
+              <div class="flex items-center justify-between mt-4">
+                <span class="text-lg font-semibold text-orange-600">S/ {{ item.dish.price }}</span>
+                <div>
+                  <button
+                    v-if="!cartStore.getCartItem(item.dish.id)"
+                    @click="cartStore.addToCart(item.dish, item.date)"
+                    class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition duration-300"
+                  >
+                    Agregar
+                  </button>
+                  <button
+                    v-else
+                    @click="cartStore.substractFromCart(item.dish.id)"
+                    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300 flex items-center gap-2"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M9 3v1H4v2h16V4h-5V3H9zM5 7h14v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7zm6 3v7h2v-7h-2z" />
+                    </svg>
+                    Quitar
+                  </button>
                 </div>
               </div>
             </div>
@@ -86,29 +110,30 @@
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
 
-  <script setup>
-  import { useCartStore } from '@/stores/cartStore';
-  import { ref } from 'vue';
+<script setup>
+import { useCartStore } from "@/stores/cartStore";
+import { ref } from "vue";
 
-  const props = defineProps({
-    menu: Array
-  });
-  const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-  const activeTab = ref(0);
-  const cartStore = useCartStore();
-  </script>
+const props = defineProps({
+  menu: Array,
+});
+const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+const activeTab = ref(0);
+const cartStore = useCartStore();
+</script>
 
-  <style scoped>
-  .menu-item img {
-    transition: transform 0.3s ease-in-out;
-  }
-  .menu-item img:hover {
-    transform: scale(1.05);
-  }
+<style scoped>
+.menu-item img {
+  transition: transform 0.3s ease-in-out;
+}
+.menu-item img:hover {
+  transform: scale(1.05);
+}
 
-  button {
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  </style>
+button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+</style>
