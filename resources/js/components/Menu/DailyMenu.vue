@@ -3,7 +3,9 @@
     <!-- Layout principal -->
     <div class="flex flex-col lg:flex-row gap-6">
       <!-- Sección izquierda (Información del restaurante) -->
-      <aside class="lg:w-1/4 bg-white rounded-lg shadow-lg p-6">
+      <aside
+        class="lg:w-1/4 bg-white rounded-lg shadow-lg p-6 hidden lg:block"
+      >
         <div class="mb-6">
           <h2 class="text-xl font-semibold text-orange-600 mb-4">Conócenos</h2>
           <p class="text-sm text-gray-600 leading-relaxed">
@@ -15,17 +17,20 @@
         </div>
 
         <div class="mb-6">
-          <h2 class="text-xl font-semibold text-orange-600 mb-4">Entra en Contacto</h2>
+          <h2 class="text-xl font-semibold text-orange-600 mb-4">
+            Entra en Contacto
+          </h2>
           <div class="flex items-center text-sm text-gray-600 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.58 3.08A10.94 10.94 0 0119.94 6.5L21 8M16.58 3.08A10.94 10.94 0 0113.91 7.5M13.91 7.5L12 21l7.5-7.5M13.91 7.5l-1.58-4.42M13.91 7.5H12" />
-            </svg>
+            <!-- Icono de correo -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4H8a4 4 0 00-4 4v8a4 4 0 004 4h8a4 4 0 004-4V8a4 4 0 00-4-4zM8 10l4 4 4-4" />
+          </svg>
             contacto@restaurante.com
           </div>
           <div class="flex items-center text-sm text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21V3M21 16V5M16 16H9" />
-            </svg>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h18M9 3v2M15 3v2M4 9h16v10H4z" />
+          </svg>
             www.laonce.com
           </div>
         </div>
@@ -33,10 +38,15 @@
         <div>
           <h2 class="text-xl font-semibold text-orange-600 mb-4">Recogida</h2>
           <p class="text-sm text-gray-600">
-            Ofrecemos un servicio rápido para recoger tus pedidos, Estamos para servirte!
+            Ofrecemos un servicio rápido para recoger tus pedidos, Estamos para
+            servirte!
           </p>
           <div class="rounded-lg overflow-hidden shadow-md mt-4">
-            <img class="w-full h-40 object-cover" src="/images/resto_laonce.jpg" alt="Recogida" />
+            <img
+              class="w-full h-40 object-cover"
+              src="/images/resto_laonce.jpg"
+              alt="Recogida"
+            />
           </div>
         </div>
       </aside>
@@ -44,14 +54,15 @@
       <!-- Sección derecha (Menú con tabs) -->
       <div class="flex-1">
         <!-- Tabs para días de la semana -->
-        <div class="flex border-b border-gray-200">
+        <div class="flex border-b border-gray-200 overflow-x-auto no-scrollbar">
           <button
             v-for="(day, index) in days"
             :key="index"
             @click="activeTab = index"
-            class="flex-1 py-3 text-center text-sm font-medium transition duration-300 uppercase tracking-wider"
+            class="flex-1 py-3 text-center text-sm font-medium transition duration-300 uppercase tracking-wider whitespace-nowrap"
             :class="{
-              'border-b-4 border-orange-500 text-orange-600 font-bold': activeTab === index,
+              'border-b-4 border-orange-500 text-orange-600 font-bold':
+                activeTab === index,
               'text-gray-500 hover:text-orange-500': activeTab !== index
             }"
           >
@@ -63,7 +74,7 @@
         </div>
 
         <!-- Lista de platos -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
           <div
             v-for="item in menu.filter(i => i.day_of_week === activeTab)"
             :key="item.dish.id"
@@ -80,8 +91,14 @@
 
             <!-- Información del plato -->
             <div class="p-4 flex flex-col justify-between flex-1">
-              <h3 class="text-lg font-semibold text-gray-800 line-clamp-2">{{ item.dish.name }}</h3>
-              <p class="text-sm text-gray-500 mt-2 line-clamp-3">{{ item.dish.description || 'Sin descripción disponible' }}</p>
+              <h3
+                class="text-lg font-semibold text-gray-800 line-clamp-2 text-center"
+              >
+                {{ item.dish.name }}
+              </h3>
+              <p class="text-sm text-gray-500 mt-2 line-clamp-3 text-center">
+                {{ item.dish.description || 'Sin descripción disponible' }}
+              </p>
 
               <div class="flex items-center justify-between mt-4">
                 <span class="text-lg font-semibold text-orange-600">S/ {{ item.dish.price }}</span>
@@ -135,5 +152,13 @@ const cartStore = useCartStore();
 
 button {
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
