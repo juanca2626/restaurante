@@ -27,16 +27,17 @@ class HomeController extends Controller
     {
         \DB::beginTransaction();
         try {
-
             $customer = Customer::firstOrCreate(['dni' => $request->dni], [
                 'name' => $request->name,
                 'cellphone' => $request->cellphone,
-                'address' => $request->address
+                'address' => $request->address,
+                'email'=> $request->email,
             ]);
             $customer->update([
                 'name' => $request->name,
                 'cellphone' => $request->cellphone,
-                'address' => $request->address
+                'address' => $request->address,
+                'email' => $request->email,
             ]);
             $sale = Sale::create(['detail' => $request->detail]);
             foreach ($request->cart as $order) {
@@ -69,7 +70,7 @@ class HomeController extends Controller
     {
         $customer = Customer::whereDni($dni)->first();
         if (! $customer) {
-            return response()->json(['name' => false]);    
+            return response()->json(['name' => false]);
         }
         return response()->json($customer->toArray());
     }

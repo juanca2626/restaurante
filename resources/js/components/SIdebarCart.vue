@@ -332,19 +332,21 @@ const getCustomerData = () => {
             'Accept': 'application/json',
         },
     }).then(async response => {
-        const data = await response.json();
-        if (!data.name) {
-            const isNumeric = !isNaN(dni.value) && !isNaN(parseFloat(dni.value));
-            if (!isNumeric) {
-                name.value = '';
-                cellphone.value = '';
-                address.value = '';
-            }
-            return;
+      const data = await response.json();
+      if (!data.name) {
+        const isNumeric= !isNaN(dni.value) && !isNaN(parseFloat(dni.value));
+        if (!isNumeric) {
+          name.value = '';
+          cellphone.value = '';
+          address.value = '';
+          email.value = '';
         }
-        name.value = data.name;
-        cellphone.value = data.cellphone;
-        address.value = data.address;
+          return;
+      }
+      name.value = data.name;
+      cellphone.value = data.cellphone;
+      address.value = data.address;
+      email.value = data.email;
     })
 }
 

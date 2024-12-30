@@ -41,12 +41,12 @@ class DishCrudController extends CrudController
     {
         CRUD::setFromDb(); // set columns from db columns.
         $this->crud->removeColumn('image');
-        // $this->crud->addColumn([
-        //     'name' => 'image',
-        //     'label' => 'Imagen',
-        //     'type' => 'image',
-        //     'disk' => 'public'
-        // ]);
+        $this->crud->addColumn([
+            'name' => 'image',
+            'label' => 'Imagen',
+            'type' => 'image',
+            'disk' => 'public'
+        ]);
         CRUD::orderBy('name');
     }
 
@@ -61,12 +61,12 @@ class DishCrudController extends CrudController
         CRUD::setValidation(DishRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
         $this->crud->removeField('image');
-        // $this->crud->addField([
-        //     'name' => 'image',
-        //     'label' => 'Imagen',
-        //     'type' => 'upload',
-        //     'withFiles' => true
-        // ]);
+        $this->crud->addField([
+            'name' => 'image',
+            'label' => 'Imagen',
+            'type' => 'upload',
+            'withFiles' => true
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax:
