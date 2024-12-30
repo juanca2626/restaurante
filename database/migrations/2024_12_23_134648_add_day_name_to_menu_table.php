@@ -15,11 +15,6 @@ return new class extends Migration
         Schema::table('menu', function (Blueprint $table) {
             $table->string('day_name', 10)->after('date');
         });
-        $days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-        foreach (Menu::all() as $menu) {
-            $dayOfWeek = $menu->date->dayOfWeek === 0 ? 6 : $menu->date->dayOfWeek - 1;
-            $menu->update(['day_name'=> $days[$dayOfWeek]]);
-        }
     }
 
     /**

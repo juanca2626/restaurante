@@ -26,10 +26,12 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-09',
+            'day_name' => 'Lunes',
             'dish_id' => $dish1->id
         ]);
         Menu::create([
             'date' => '2024-12-09',
+            'day_name' => 'Lunes',
             'dish_id' => $dish2->id
         ]);
         $dish1 = Dish::create([
@@ -44,10 +46,12 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-10',
+            'day_name' => 'Martes',
             'dish_id' => $dish1->id
         ]);
         Menu::create([
             'date' => '2024-12-10',
+            'day_name' => 'Martes',
             'dish_id' => $dish2->id
         ]);
         $dish1 = Dish::create([
@@ -62,10 +66,12 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-11',
+            'day_name' => 'Miércoles',
             'dish_id' => $dish1->id
         ]);
         Menu::create([
             'date' => '2024-12-11',
+            'day_name' => 'Miércoles',
             'dish_id' => $dish2->id
         ]);
         $dish1 = Dish::create([
@@ -80,10 +86,12 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-12',
+            'day_name' => 'Jueves',
             'dish_id' => $dish1->id
         ]);
         Menu::create([
             'date' => '2024-12-12',
+            'day_name' => 'Jueves',
             'dish_id' => $dish2->id
         ]);
         $dish1 = Dish::create([
@@ -98,10 +106,12 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-13',
+            'day_name' => 'Viernes',
             'dish_id' => $dish1->id
         ]);
         Menu::create([
             'date' => '2024-12-13',
+            'day_name' => 'Viernes',
             'dish_id' => $dish2->id
         ]);        
     }
