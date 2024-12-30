@@ -6,6 +6,7 @@ use App\Models\Dish;
 use App\Models\Menu;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 
 class MenuSeeder extends Seeder
 {
@@ -26,11 +27,13 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-09',
-            'dish_id' => $dish1->id
+            'dish_id' => $dish1->id,
+            'day_name' => Carbon::parse('2024-12-09')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         Menu::create([
             'date' => '2024-12-09',
-            'dish_id' => $dish2->id
+            'dish_id' => $dish2->id,
+            'day_name' => Carbon::parse('2024-12-09')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         $dish1 = Dish::create([
             'name' => 'Arroz con Pollo',
@@ -44,11 +47,13 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-10',
-            'dish_id' => $dish1->id
+            'dish_id' => $dish1->id,
+            'day_name' => Carbon::parse('2024-12-10')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         Menu::create([
             'date' => '2024-12-10',
-            'dish_id' => $dish2->id
+            'dish_id' => $dish2->id,
+            'day_name' => Carbon::parse('2024-12-10')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         $dish1 = Dish::create([
             'name' => 'Tallarines Verdes',
@@ -62,11 +67,13 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-11',
-            'dish_id' => $dish1->id
+            'dish_id' => $dish1->id,
+            'day_name' => Carbon::parse('2024-12-11')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         Menu::create([
             'date' => '2024-12-11',
-            'dish_id' => $dish2->id
+            'dish_id' => $dish2->id,
+            'day_name' => Carbon::parse('2024-12-11')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         $dish1 = Dish::create([
             'name' => 'Causa',
@@ -74,17 +81,19 @@ class MenuSeeder extends Seeder
             'image' => 'causa'
         ]);
         $dish2 = Dish::create([
-            'name' => 'Mondonguito Italiano',
+            'name' => 'Seco de Res',
             'price' => 13,
             'image' => 'seco_res'
         ]);
         Menu::create([
             'date' => '2024-12-12',
-            'dish_id' => $dish1->id
+            'dish_id' => $dish1->id,
+            'day_name' => Carbon::parse('2024-12-12')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         Menu::create([
             'date' => '2024-12-12',
-            'dish_id' => $dish2->id
+            'dish_id' => $dish2->id,
+            'day_name' => Carbon::parse('2024-12-12')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         $dish1 = Dish::create([
             'name' => 'Arroz Chaufa',
@@ -98,11 +107,13 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'date' => '2024-12-13',
-            'dish_id' => $dish1->id
+            'dish_id' => $dish1->id,
+            'day_name' => Carbon::parse('2024-12-13')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
         Menu::create([
             'date' => '2024-12-13',
-            'dish_id' => $dish2->id
+            'dish_id' => $dish2->id,
+            'day_name' => Carbon::parse('2024-12-13')->locale('es')->dayName, // Obtiene el nombre del día en español
         ]);
     }
 }
