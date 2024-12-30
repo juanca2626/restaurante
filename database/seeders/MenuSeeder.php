@@ -22,7 +22,7 @@ class MenuSeeder extends Seeder
         $dish2 = Dish::create([
             'name' => 'Lomo Saltado',
             'price' => 17,
-            'image' => 'aji'
+            'image' => 'lomo_saltado'
         ]);
         Menu::create([
             'date' => '2024-12-09',
@@ -35,12 +35,12 @@ class MenuSeeder extends Seeder
         $dish1 = Dish::create([
             'name' => 'Arroz con Pollo',
             'price' => 16,
-            'image' => 'aji'
+            'image' => 'arroz_pollo'
         ]);
         $dish2 = Dish::create([
             'name' => 'Lentejitas',
             'price' => 14,
-            'image' => 'aji'
+            'image' => 'lentejitas'
         ]);
         Menu::create([
             'date' => '2024-12-10',
@@ -53,12 +53,12 @@ class MenuSeeder extends Seeder
         $dish1 = Dish::create([
             'name' => 'Tallarines Verdes',
             'price' => 13,
-            'image' => 'aji'
+            'image' => 'tallarines_verdes'
         ]);
         $dish2 = Dish::create([
             'name' => 'Arroz a la Cubana',
             'price' => 10,
-            'image' => 'aji'
+            'image' => 'arroz_cubana'
         ]);
         Menu::create([
             'date' => '2024-12-11',
@@ -71,12 +71,12 @@ class MenuSeeder extends Seeder
         $dish1 = Dish::create([
             'name' => 'Causa',
             'price' => 11,
-            'image' => 'aji'
+            'image' => 'causa'
         ]);
         $dish2 = Dish::create([
             'name' => 'Mondonguito Italiano',
             'price' => 13,
-            'image' => 'aji'
+            'image' => 'seco_res'
         ]);
         Menu::create([
             'date' => '2024-12-12',
@@ -89,12 +89,12 @@ class MenuSeeder extends Seeder
         $dish1 = Dish::create([
             'name' => 'Arroz Chaufa',
             'price' => 15,
-            'image' => 'aji'
+            'image' => 'chaufa'
         ]);
         $dish2 = Dish::create([
             'name' => 'Saltado de Pollo',
             'price' => 16,
-            'image' => 'aji'
+            'image' => 'saltado_pollo'
         ]);
         Menu::create([
             'date' => '2024-12-13',
@@ -103,6 +103,6 @@ class MenuSeeder extends Seeder
         Menu::create([
             'date' => '2024-12-13',
             'dish_id' => $dish2->id
-        ]);        
+        ]);
     }
 }
