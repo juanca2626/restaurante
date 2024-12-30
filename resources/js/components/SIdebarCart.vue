@@ -179,12 +179,14 @@
           name.value = '';
           cellphone.value = '';
           address.value = '';
+          email.value = '';
         }
           return;
       }
       name.value = data.name;
       cellphone.value = data.cellphone;
       address.value = data.address;
+      email.value = data.email;
     })
   }
 
