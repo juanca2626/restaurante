@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('dni')->index();
             $table->string('address')->index();
             $table->string('cellphone')->index();
-            $table->string('email')->index();
             $table->timestamps();
         });
     }
