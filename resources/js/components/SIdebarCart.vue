@@ -34,7 +34,8 @@
                                     class="menu-item sidebar-item relative flex items-center justify-between py-0.5 px-2 py-2">
                                     <p class="text-sm font-semibold truncate" style="margin: 0; color: rgb(2, 6, 23);">
                                         <span class="mr-2">{{ item.name }}</span>
-                                        <span class="text-red">S/ {{ item.price }}</span>
+                                        <span class="text-red">S/ {{ item.price }}</span> <br>
+                                        <span v-if="item.extra_dishes.length > 0">- {{ item.extra_dishes[0].name }}</span>
                                     </p>
                                     <span @click="cartStore.substractFromCart(item.dish_id)"
                                         class="text-red hover:bg-gray-100 p-1 rounded-full">

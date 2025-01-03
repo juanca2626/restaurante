@@ -14,7 +14,7 @@
             <main-app v-slot="props"
                 save-order-uri="{{ route('save-order') }}"
                 get-customer-data-uri="{{ route('get-customer-data', ['dni' => ':dni']) }}">
-                <sidebar-cart :menu="{{ $menu ?? [] }}"></sidebar-cart>
+                <sidebar-cart :menu="{{ $menu ?? [] }}" :extra-dishes="{{ $extras ?? [] }}"></sidebar-cart>
                 <div class="main-content py-3 px-10">
                     @yield('content')
                 </div>

@@ -100,7 +100,11 @@
               <p class="text-sm text-gray-500 mt-2 line-clamp-3 text-center">
                 {{ item.dish.description || 'Sin descripción disponible' }}
               </p>
-
+              <select class="form-control" v-if="cartStore.getCartItem(item.dish.id)" @change="cartStore.addExtraDishToCart(item.dish.id, extraDishes.find(i => i.id == $event.target.value))">
+                <option value="null">Sin Entrada</option>
+                <option :selected="cartStore.getCartItem(item.dish.id) && cartStore.getCartItem(item.dish.id).extra_dishes.length > 0 && cartStore.getCartItem(item.dish.id).extra_dishes[0].id == extra.id" 
+                  v-for="extra in extraDishes.filter(i => i.type == 'Entrada')" :value="extra.id">{{ extra.name }}</option>
+              </select>
               <div class="flex items-center justify-between mt-4">
                 <span class="text-lg font-semibold text-orange-600">S/ {{ item.dish.price }}</span>
                 <div>
@@ -137,6 +141,7 @@ import { ref } from "vue";
 
 const props = defineProps({
   menu: Array,
+  extraDishes: Array,
 });
 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 const activeTab = ref(0);

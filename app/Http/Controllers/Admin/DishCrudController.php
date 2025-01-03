@@ -42,6 +42,7 @@ class DishCrudController extends CrudController
         CRUD::orderBy('name');
         */
         CRUD::column('name')->label('Nombre Plato');
+        CRUD::column('type')->label('Tipo');
         CRUD::column('price')->type('number')->prefix('S/ ')->label('Precio');
         CRUD::column('image')->type('image')->prefix('storage/')->label('Imagen');
         CRUD::column('created_at')->label('Fecha de Creación');
@@ -77,7 +78,8 @@ class DishCrudController extends CrudController
         */
 
         CRUD::field('name')->type('text')->label('Nombre Plato');
-        CRUD::field('price')->type('number')->prefix('S/ ')->label('Precio');
+        CRUD::field('type')->type('select_from_array')->label('Tipo')->options(['Entrada' => 'Entrada', 'Segundo' => 'Segundo']);
+        CRUD::field('price')->type('number')->default(0)->prefix('S/ ')->label('Precio');
         CRUD::field('image')->type('upload')->upload(true)->disk('public')->withFiles(true)->label('Imagen');
     }
 

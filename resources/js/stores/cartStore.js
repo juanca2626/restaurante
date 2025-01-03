@@ -15,6 +15,7 @@ export const useCartStore = defineStore('cartStore', {
       } else {
           this.cart.push({
               dish_id: dish.id,
+              extra_dishes: [],
               price: parseFloat(dish.price),
               name: dish.name,
               image: dish.image,
@@ -22,6 +23,21 @@ export const useCartStore = defineStore('cartStore', {
               date: date
           });
       }
+    },
+    addExtraDishToCart(currentDishId, extraDish) {      
+      let currentDish = this.cart.find(i => i.dish_id == currentDishId);
+      if (extraDish === undefined) { 
+        currentDish.extra_dishes = [];
+        return;
+      }
+      if (currentDish.extra_dishes.length == 1) {
+        currentDish.extra_dishes = [];
+      }
+      currentDish.extra_dishes.push({
+        id: extraDish.id,
+        name: extraDish.name,
+        type: extraDish.type
+      })
     },
     substractFromCart(dish_id) {
       let existingDish = this.cart.find(i => i.dish_id == dish_id);

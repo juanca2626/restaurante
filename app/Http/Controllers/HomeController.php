@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SaveOrderRequest;
+use App\Models\Dish;
 use App\Models\Menu;
 use App\Models\Sale;
 use App\Models\Order;
 use App\Models\Customer;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Mail\SendNewOrderMail;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\DishesResource;
+use App\Http\Requests\SaveOrderRequest;
 
 class HomeController extends Controller
 {
@@ -20,7 +21,8 @@ class HomeController extends Controller
     {        
         $menu = Menu::orderBy('date')->with('dish')->get();
         $menu = DishesResource::collection($menu)->toJson();
-        return view("landing.index", compact("menu"));
+        $extras = Dish::whereType('Entrada')->orderBy('name')->get();
+        return view("landing.index", compact("menu", "extras"));
     }
 
     public function saveOrder(SaveOrderRequest $request): JsonResponse
@@ -41,13 +43,23 @@ class HomeController extends Controller
             ]);
             $sale = Sale::create(['detail' => $request->detail]);
             foreach ($request->cart as $order) {
-                Order::create([
+                $mainOrder = Order::create([
                     'delivery_date' => $order['date'],
                     'customer_id' => $customer->id,
                     'dish_id' => $order['dish_id'],
                     'quantity' => $order['quantity'],
                     'sale_id' => $sale->id
                 ]);
+                foreach ($order['extra_dishes'] as $extra) {
+                    Order::create([
+                        'delivery_date' => $order['date'],
+                        'customer_id' => $customer->id,
+                        'dish_id' => $extra['id'],
+                        'quantity' => 1,
+                        'sale_id' => $sale->id,
+                        'parent_id' => $mainOrder->id
+                    ]);
+                }
             }        
             Mail::to(config('app.mail_to'))->send(new SendNewOrderMail(collect($request->cart), $customer, $request->detail ?? ''));
             logger('Admin mail sent');
@@ -62,6 +74,8 @@ class HomeController extends Controller
             \DB::commit();
             return response()->json();
         } catch (\Exception $e) {
+            \DB::rollBack();
+            logger($e);
             return response()->json(['message' => 'Error al registrar, contactese con la empresa'], 422);
         }
     }

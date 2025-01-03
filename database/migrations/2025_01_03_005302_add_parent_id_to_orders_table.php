@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('dishes', function (Blueprint $table) { 
-            $table->string('type', 50)->default('Segundo')->after('name');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->unsignedBigInteger('parent_id')->nullable()->after('id');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('dishes', function (Blueprint $table) {
-            $table->dropColumn('type');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('parent_id');
         });
     }
 };
