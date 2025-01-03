@@ -39,6 +39,7 @@ class DishCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+
         CRUD::setFromDb(); // set columns from db columns.
         $this->crud->removeColumn('image');
         $this->crud->addColumn([
@@ -60,6 +61,16 @@ class DishCrudController extends CrudController
     {
         CRUD::setValidation(DishRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
+        // $this->crud->removeField('type');
+        $this->crud->addField([
+            'label' => 'Tipo',
+            'name' => 'type',
+            'type' => 'select_from_array',
+            'options' => [
+                'first_course' => 'Entrada',
+                'second_ourse' => 'Segundo' 
+            ],
+        ]);
         $this->crud->removeField('image');
         $this->crud->addField([
             'name' => 'image',
