@@ -81,9 +81,10 @@
             class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 menu-item"
           >
             <!-- Imagen del plato -->
+             <!-- :src="`/images/dishes/${item.dish.image || 'no-image'}.jpg`" -->
             <div class="relative h-40">
               <img
-                :src="`/images/dishes/${item.dish.image || 'no-image'}.jpg`"
+                :src="item.dish.image ? `/storage/${item.dish.image}` : '/images/no-image.jpg'"
                 alt="Imagen del plato"
                 class="absolute inset-0 w-full h-full object-cover"
               />
