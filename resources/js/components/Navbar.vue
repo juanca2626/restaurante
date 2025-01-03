@@ -4,7 +4,7 @@
     <div class="cart-button flex" @click="uiStore.sidebarIsOpen = true"><img src="/icons/shopping-cart.svg" alt=""> <div>{{ cartStore.cart.reduce((sum, product) => sum + product.quantity, 0) }}</div></div>
   </header>
 </template>
-	
+
 <script setup>
   import { useCartStore } from '@/stores/cartStore';
   import { useUiStore } from '@/stores/uiStore';

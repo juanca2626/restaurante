@@ -19,11 +19,7 @@ class DishCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     * 
-     * @return void
-     */
+
     public function setup()
     {
         CRUD::setModel(\App\Models\Dish::class);
@@ -31,15 +27,10 @@ class DishCrudController extends CrudController
         CRUD::setEntityNameStrings('Plato', 'Platos');
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     * 
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
-     */
+
     protected function setupListOperation()
     {
-
+        /*
         CRUD::setFromDb(); // set columns from db columns.
         $this->crud->removeColumn('image');
         $this->crud->addColumn([
@@ -49,17 +40,21 @@ class DishCrudController extends CrudController
             'disk' => 'public'
         ]);
         CRUD::orderBy('name');
+        */
+        CRUD::column('name')->label('Nombre Plato');
+        CRUD::column('price')->type('number')->prefix('S/ ')->label('Precio');
+        CRUD::column('image')->type('image')->prefix('storage/')->label('Imagen');
+        CRUD::column('created_at')->label('Fecha de Creación');
+        CRUD::orderBy('name');
+
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
+
     protected function setupCreateOperation()
     {
         CRUD::setValidation(DishRequest::class);
+
+        /*
         CRUD::setFromDb(); // set fields from db columns.
         // $this->crud->removeField('type');
         $this->crud->addField([
@@ -76,21 +71,17 @@ class DishCrudController extends CrudController
             'name' => 'image',
             'label' => 'Imagen',
             'type' => 'upload',
+            'disk' => 'public',
             'withFiles' => true
         ]);
+        */
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('name')->type('text')->label('Nombre Plato');
+        CRUD::field('price')->type('number')->prefix('S/ ')->label('Precio');
+        CRUD::field('image')->type('upload')->upload(true)->disk('public')->withFiles(true)->label('Imagen');
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
+
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();

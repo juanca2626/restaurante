@@ -25,8 +25,10 @@ class DishRequest extends FormRequest
     public function rules()
     {
         return [
-            'price' => 'required',
-            'name' => 'required'
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Máximo 2MB
         ];
     }
 
