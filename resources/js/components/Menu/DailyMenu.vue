@@ -76,7 +76,7 @@
         <!-- Lista de platos -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
           <div
-            v-for="item in menu.filter(i => i.day_of_week === activeTab)"
+            v-for="item in menu.filter(i => i.day_of_week === activeTab && i.dish.type == 'Segundo')"
             :key="item.dish.id"
             class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition duration-300 menu-item"
           >
@@ -102,8 +102,8 @@
               </p>
               <select class="form-control" v-if="cartStore.getCartItem(item.dish.id)" @change="cartStore.addExtraDishToCart(item.dish.id, extraDishes.find(i => i.id == $event.target.value))">
                 <option value="null">Sin Entrada</option>
-                <option :selected="cartStore.getCartItem(item.dish.id) && cartStore.getCartItem(item.dish.id).extra_dishes.length > 0 && cartStore.getCartItem(item.dish.id).extra_dishes[0].id == extra.id" 
-                  v-for="extra in extraDishes.filter(i => i.type == 'Entrada')" :value="extra.id">{{ extra.name }}</option>
+                <option :selected="cartStore.getCartItem(item.dish.id) && cartStore.getCartItem(item.dish.id).extra_dishes.length > 0 && cartStore.getCartItem(item.dish.id).extra_dishes[0].id == extra.dish.id" 
+                  v-for="extra in menu.filter(i => i.day_of_week === activeTab && i.dish.type == 'Entrada')" :value="extra.dish.id">{{ extra.dish.name }}</option>
               </select>
               <div class="flex items-center justify-between mt-4">
                 <span class="text-lg font-semibold text-orange-600">S/ {{ item.dish.price }}</span>

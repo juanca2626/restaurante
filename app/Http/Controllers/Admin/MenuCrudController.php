@@ -54,6 +54,14 @@ class MenuCrudController extends CrudController
             'attribute' => 'name',
             'model' => "App\Models\Dish",
         ]);
+        $this->crud->addColumn([
+            'label' => 'Tipo',
+            'type' => 'text',
+            'name' => 'type',
+            'value' => function ($model) {
+                return $model->dish->type;
+            }
+        ]);
         CRUD::orderBy("date","asc");
     }
 

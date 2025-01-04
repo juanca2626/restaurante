@@ -18,7 +18,7 @@
             \Carbon\Carbon::setLocale('es');
         @endphp
         @foreach ($groupedCart as $date => $dishes)
-            <li> {{ ucfirst(\Carbon\Carbon::parse($date)->translatedFormat('l')) }}: {{ $dishes->map(fn($x) => $x['quantity'].' '.$x['name'])->implode(', ') }} </li>
+            <li> {{ ucfirst(\Carbon\Carbon::parse($date)->translatedFormat('l')) }}: {{ $dishes->map(fn($x) => (isset($x['extra_dishes'][0]) ? $x['extra_dishes'][0]['name'].' - ' : '').$x['name'])->implode(', ') }} </li>
         @endforeach
     </ul>
     @if ($detail)

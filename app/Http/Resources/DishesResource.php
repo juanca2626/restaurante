@@ -27,6 +27,7 @@ class DishesResource extends JsonResource
                 'name' => $this->dish->name,
                 'price' => $this->dish->price,
                 'image' => $this->dish->image,
+                'type' => $this->dish->type,
             ]
         ];
     }

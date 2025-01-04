@@ -33,7 +33,7 @@ class SendNewOrderMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address(config('mail.mailers.smtp.mail_send'), 'Administrador LaOnce'),
+            from: new Address('rricardo.av@gmail.com', 'Administrador LaOnce'),
             subject: 'Pedido registrado',
         );
     }
